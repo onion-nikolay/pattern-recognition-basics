@@ -12,79 +12,24 @@ from image_processing import BIN_METHODS
 CLASSIFIER_TYPES = classifier.CLASSIFIER_TYPES
 CLASSIFIER_TYPES_CF = classifier.CLASSIFIER_TYPES_CF
 
-# PARAMS = {'folder': r'D:\Data\CPR\Images',
-#          'classifier_type': ['cf_holo'],
-#          'dataset': ['256_black', '256_white'],
-#          'train_object': [{'T72 (train)': 1, 'Abrams': 0}],
-#          'test_object': [{'T72 (true)': 1, 'Chieftain': 0, 'Leopard': 0}],
+#PARAMS = {'folder': '/media/onion-nikolay/ADATA NH13/datasets/',
+#          'classifier_type': ['cf'],
+#          'dataset': ['render_energies'],
+#          'train_object': [{'render_150': 1, 'false_train': 0}],
+#          'test_object': [{'render_237': 1, 'false_test': 0}],
 #          'classifier_is_save': True,
 #          'filter_type': LINEAR_FILTERS,
-#          'processing_method': [['bradley', 'random'],\
-#                                ['bradley', 'quadratic'],\
-#                                ['otsu', 'random'],\
-#                                ['otsu', 'quadratic']]}
+#          'processing_method': [8]}
 
-# PARAMS = {'folder': r'D:\Data\CPR\Images',
-#          'classifier_type': CLASSIFIER_TYPES,
-#          'dataset': listdir(r'D:\Data\CPR\Images'),
-#          'train_object': [{'T72 (train)': 1, 'Abrams': 0}],
-#          'test_object': [{'T72 (true)': 1, 'Chieftain': 0, 'Leopard': 0}],
-#          'classifier_is_save': True,
-#          'filter_type': LINEAR_FILTERS,
-#          'processing_method': [8, 4, 2, [8, 'random'], [4, 'random'],
-#                                [2, 'random'], [8, 'quadratic'],
-#                                [4, 'quadratic'], [2, 'quadratic']]}
-
-# PARAMS = {'folder': r'D:\Data\CPR\Images',
-#          'classifier_type': ['cf_holo', 'cf'],
-#          'dataset': listdir(r'D:\Data\CPR\Images'),
-#          'train_object': [{'T72 (train)': 1, 'Abrams': 0}],
-#          'test_object': [{'T72 (true)': 1, 'Chieftain': 0, 'Leopard': 0}],
-#          'classifier_is_save': True,
-#          'filter_type': LINEAR_FILTERS,
-#          'processing_method': BIN_METHODS}
-
-# TEST_PARAMS = {'folder': r'D:\Data\CPR\Images',
-#               'classifier_type': ['cf_holo'],
-#               'dataset': [listdir(r'D:\Data\CPR\Images')[-1]],
-#               'train_object': [{'T72 (train)': 1, 'Abrams': 0}],
-#               'test_object':
-#                   [{'T72 (true)': 1, 'Chieftain': 0, 'Leopard': 0}],
-#               'classifier_is_save': True,
-#               'filter_type': TEST,
-#               'processing_method': [BIN_METHODS[4]]}
-#
-# PARAMS_BIN_METHODS = {'folder': r'D:\Data\CPR\Images',
-#                      'classifier_type': ['cf_holo'],
-#                      'dataset': [listdir(r'D:\Data\CPR\Images')[0]],
-#                      'train_object': [{'T72 (train)': 1, 'Abrams': 0}],
-#                      'test_object':
-#                          [{'T72 (true)': 1, 'Chieftain': 0, 'Leopard': 0}],
-#                      'classifier_is_save': True,
-#                      'filter_type': TEST,
-#                      'processing_method': BIN_METHODS}
-
-PARAMS_RENDER = {'folder': r'D:\cpr\datasets',
-                 'classifier_type': ['cf'],
-                 'dataset': ['object_50_f3_c30'],
-                 'train_object': [{'T72_50_1': 1, 'abr_50_1': 0}],
-                 'test_object':
-                     [{'T72_50_2': 1, 'chi_50_1': 0, 'leo_50_1': 0}],
-                 'classifier_is_save': True,
-                 'filter_type': LINEAR_FILTERS,
-                 'processing_method': [8]}
-
-PARAMS_FACE = {'folder': r'G:\projects\patter-recognition-basics\cpr\datasets',
-               'classifier_type': ['cf'],
-               'dataset': ['face'],
-               'train_object': [{'true_train': 1, 'false_train': 0}],
-               'test_object': [{'true_p': 1, 'false_p': 0}],
-               'classifier_is_save': True,
-               'filter_type': LINEAR_FILTERS,
-               'processing_method': [8]}
-
-
-PARAMS = PARAMS_RENDER
+PARAMS = {'folder': '/media/onion-nikolay/ADATA NH13/datasets/',
+          'classifier_type': ['cf'],
+          'dataset': ['render_vs_photo'],
+          'train_object': [{'render_b_256': 1, 'false_train': 0}],
+          'test_object': [{'photo_b_256': 1, 'Abrams': 0, 'Chieftain': 0,
+                           'Leopard': 0}],
+          'classifier_is_save': True,
+          'filter_type': LINEAR_FILTERS,
+          'processing_method': [8]}
 
 
 def getParams():

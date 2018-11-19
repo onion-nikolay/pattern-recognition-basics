@@ -3,6 +3,7 @@
 """
 import numpy as np
 import skimage.filters as skf
+import cv2 as cv
 from inspect import getargspec
 from helpers import calculateWindow, chooseArgs
 
@@ -202,6 +203,7 @@ def cfPreprocessing(input_images, field_color=0, **kwargs):
     output_images = input_images
     for index, set_of_images in enumerate(input_images):
         output_images[index] = square(set_of_images, max_size, field_color)
+
     return output_images
 
 
@@ -241,7 +243,7 @@ def square(input_images, field_size, field_color=0, centered=False):
             output_image[x1:x2, y1:y2] = input_image
         else:
             output_image[:size1, :size2] = input_image
-        output_images.append(output_image)
+        output_images.append(cv.equalizeHist(output_image.astype(np.uint8)))
     return output_images
 
 

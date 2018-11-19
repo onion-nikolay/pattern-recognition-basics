@@ -426,11 +426,11 @@ class session():
     def start(self, list_of_params):
         """\n    Start new session with input parameters."""
         try:
-            os.makedirs(r'data\model')
+            os.makedirs(pjoin('data', 'model'))
         except OSError:
             pass
         try:
-            os.makedirs(r'data\graph')
+            os.makedirs(pjoin('data', 'graph'))
         except OSError:
             pass
         __start = timer()
@@ -443,7 +443,7 @@ class session():
             self.data = self.data.append(row, sort=False)
         today = "-".join(str(datetime.datetime.today().isoformat()).replace(
                 '.', ':').split(':'))
-        name = pjoin('dataa', 'report_') + today[:19] + '.csv'
+        name = pjoin('data', 'report_') + today[:19] + '.csv'
         self.data.to_csv(name)
         __finish = timer()
         __dt = __finish - __start

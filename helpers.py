@@ -73,7 +73,7 @@ def returnFiles(input_data, fmt=IMAGE_FORMATS):
         return [returnFiles(element) for element in input_data]
     else:
         if not os.path.exists(input_data):
-            raise OSError("invalid input path!")
+            raise OSError("invalid input path: {}".format(input_data))
         return [pjoin(input_data, name) for name in os.listdir(
                 input_data) if os.path.splitext(name)[1][1:] in fmt]
 
