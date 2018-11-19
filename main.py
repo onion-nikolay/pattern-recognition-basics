@@ -4,6 +4,7 @@
 import datetime
 import pandas as pd
 from os import listdir, rename
+from os.path import join as pjoin
 from cf import LINEAR_FILTERS, TEST
 from cpr import classifier, session
 from image_processing import BIN_METHODS
@@ -92,17 +93,18 @@ def getParams():
     for dataset in PARAMS['dataset']:
         for train_objects, test_objects in zip(PARAMS['train_object'],
                                                PARAMS['test_object']):
-            train_object_folder = [(PARAMS['folder']+'\\'+dataset+'\\'+key
-                                    ) for key in train_objects.keys()]
 
-            train_object_labels = [
-                    train_objects[key] for key in train_objects.keys()]
+            train_object_folder = [pjoin(PARAMS['folder'], dataset, key)
+                                   for key in train_objects.keys()]
 
-            test_object_folder = [(PARAMS['folder']+'\\'+dataset+'\\'+key
-                                   ) for key in test_objects.keys()]
+            train_object_labels = [train_objects[key]
+                                   for key in train_objects.keys()]
 
-            test_object_labels = [
-                    test_objects[key] for key in test_objects.keys()]
+            test_object_folder = [pjoin(PARAMS['folder'], dataset, key)
+                                  for key in test_objects.keys()]
+
+            test_object_labels = [test_objects[key]
+                                  for key in test_objects.keys()]
 
             for clf in PARAMS['classifier_type']:
                 if not(clf in CLASSIFIER_TYPES_CF):
@@ -164,6 +166,6 @@ if __name__ == '__main__':
     name = s.start(getParams())
     __today = "-".join(str(datetime.datetime.today().isoformat()).replace(
             '.', ':').split(':'))
-    rename('data\\graph', 'data\\'+__today[:19]+' graph')
-    rename('data\\model', 'data\\'+__today[:19]+' model')
+    rename(pjoin('data', 'graph'), pjoin('data', __today[:19]+' graph'))
+    rename(pjoin('data', 'model'), pjoin('data', __today[:19]+' model'))
     df = pd.read_csv(name)

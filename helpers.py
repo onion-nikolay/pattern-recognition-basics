@@ -7,6 +7,7 @@ import numpy as np
 import os
 import cv2 as cv
 from scipy.stats import norm
+from os.path import join as pjoin
 
 
 IMAGE_FORMATS = ['jpg', 'png', 'tif', 'bmp']
@@ -73,7 +74,7 @@ def returnFiles(input_data, fmt=IMAGE_FORMATS):
     else:
         if not os.path.exists(input_data):
             raise OSError("invalid input path!")
-        return [input_data + '\\' + name for name in os.listdir(
+        return [pjoin(input_data, name) for name in os.listdir(
                 input_data) if os.path.splitext(name)[1][1:] in fmt]
 
 

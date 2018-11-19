@@ -13,6 +13,7 @@ from timeit import default_timer as timer
 from sklearn.svm import LinearSVC as svc
 from inspect import getargspec
 from joblib import load, dump
+from os.path import join as pjoin
 
 import cf
 import helpers as hlp
@@ -75,13 +76,13 @@ def getDiscrChar(peaks, names, title=None, is_save=False, **kwargs):
             error_key = 1
             dataset = 'Unknown'
         fig = plt.gcf()
-        folder = "data\\graph"
+        folder = pjoin('data', 'graph')
         try:
-            os.mkdir(folder + '\\' + dataset)
+            os.mkdir(pjoin(folder, dataset))
         except OSError:
             pass
         fig.set_size_inches(18.5, 10.5)
-        full_name = folder + '\\' + dataset + '\\' + title + '.png'
+        full_name = pjoin(folder, dataset, title) + '.png'
         fig.savefig(full_name, dpi=300, bbox_inches='tight')
         plt.close()
     else:
@@ -259,7 +260,8 @@ class classifier:
         """\n    For loading of classifier.
         In progress...
         """
-        full_classifier_name = "data\\model\\"+self.type+'\\'+self.name+'.pkl'
+        full_classifier_name = pjoin(
+                'data', 'model', self.type, self.name) + '.pkl'
         with open(full_classifier_name, 'rb') as output:
             self.data = load(output)
 
@@ -268,8 +270,8 @@ class classifier:
         """\n    For saving of classifier.
         In progress...
         """
-        full_path = "data\\model\\" + self.type
-        full_classifier_name = full_path + '\\' + self.name + '.pkl'
+        full_path = pjoin('data', 'model', self.type)
+        full_classifier_name = pjoin(full_path, self.name) + '.pkl'
         if not(os.path.isdir(full_path)):
             try:
                 os.mkdir(full_path)
@@ -281,12 +283,12 @@ class classifier:
             dump(self.data, output)
 
         if self.type is 'cf':
-            full_image_name = full_path + '\\' + self.name + '.png'
+            full_image_name = pjoin(full_path, self.name) + '.png'
             img = np.real(ifft(self.data))
             img = img.astype(float) * 255 / np.max(img)
             cv.imwrite(full_image_name, img)
         elif self.type is 'cf_holo':
-            full_image_name = full_path + '\\' + self.name + '.png'
+            full_image_name = pjoin(full_path, self.name) + '.png'
             img = np.abs(self.data)
             img = img.astype(float) * 255 / np.max(img)
             cv.imwrite(full_image_name, img)
@@ -441,7 +443,7 @@ class session():
             self.data = self.data.append(row, sort=False)
         today = "-".join(str(datetime.datetime.today().isoformat()).replace(
                 '.', ':').split(':'))
-        name = 'data\\report_' + today[:19] + '.csv'
+        name = pjoin('dataa', 'report_') + today[:19] + '.csv'
         self.data.to_csv(name)
         __finish = timer()
         __dt = __finish - __start
@@ -482,8 +484,8 @@ class session():
         labels_full = hlp.flattenList([([a] * len(b)) for a, b in zip(
                 labels, returnFiles(folders))])
         predictions = getPrediction(clf, folders, False)
-        names = [folder.split('\\')[-1] for folder in folders]
-        dataset = folders[0].split('\\')[-2]
+        names = [folder.split(os.sep)[-1] for folder in folders]
+        dataset = folders[0].split(os.sep)[-2]
         getDiscrChar(predictions, names=names, title=clf_name,
                      is_save=is_save, threshold=clf.threshold,
                      dataset=dataset)
